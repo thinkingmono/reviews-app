@@ -6,36 +6,60 @@ import { FaQuoteRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 const App = () => {
   const [index, setIndex] = useState(0);
   const { id, name, job, image, text } = data[index];
-  const [randomIndex, setRandomIndex] = useState();
+  /*MY APPROACH*/
+  // const [randomIndex, setRandomIndex] = useState();
+  // const nextReview = () => {
+  //   if (index < data.length - 1) {
+  //     setIndex((prevIndex) => {
+  //       return prevIndex + 1;
+  //     })
+  //   } else {
+  //     setIndex(0);
+  //   }
+  // }
+  // const prevReview = () => {
+  //   if (index > 0) {
+  //     setIndex((prevIndex) => {
+  //       return prevIndex - 1;
+  //     })
+  //   } else {
+  //     setIndex(data.length - 1);
+  //   }
+  // }
+
+  // const randomUser = () => {
+  //   let tempIndex = Math.floor(Math.random() * ((data.length - 1) - 0 + 1) + 0);
+  //   // console.log(randomIndex);
+  //   if(tempIndex !== randomIndex){
+  //     setRandomIndex(tempIndex);
+  //     setIndex(tempIndex);
+  //   }else{
+  //     randomUser();
+  //   }
+  // }
+
+  /*MODULE % APPROACH*/
   const nextReview = () => {
-    if (index < data.length - 1) {
-      setIndex((prevIndex) => {
-        return prevIndex + 1;
-      })
-    } else {
-      setIndex(0);
-    }
+    setIndex((prevIndex) => {
+      return (prevIndex + 1) % data.length;
+    })
   }
   const prevReview = () => {
-    if (index > 0) {
-      setIndex((prevIndex) => {
-        return prevIndex - 1;
-      })
-    } else {
-      setIndex(data.length - 1);
-    }
+    setIndex((prevIndex) => {
+      return (prevIndex - 1 + data.length) % data.length;
+    })
   }
+  /*END MODULE % APPROACH*/
 
   const randomUser = () => {
     let tempIndex = Math.floor(Math.random() * ((data.length - 1) - 0 + 1) + 0);
-    // console.log(randomIndex);
-    if(tempIndex !== randomIndex){
-      setRandomIndex(tempIndex);
+    if(tempIndex !== index){
       setIndex(tempIndex);
     }else{
       randomUser();
     }
   }
+
   return (
     <>
       <main>
