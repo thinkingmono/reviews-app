@@ -7,11 +7,11 @@ const App = () => {
   const [index, setIndex] = useState(0);
   const { id, name, job, image, text } = data[index];
   const nextReview = () => {
-    if (index < data.length-1) {
+    if (index < data.length - 1) {
       setIndex((prevIndex) => {
         return prevIndex + 1;
       })
-    }else{
+    } else {
       setIndex(0);
     }
   }
@@ -20,9 +20,15 @@ const App = () => {
       setIndex((prevIndex) => {
         return prevIndex - 1;
       })
-    }else{
-      setIndex(data.length-1);
+    } else {
+      setIndex(data.length - 1);
     }
+  }
+
+  const randomUser = () => {
+    const randomIndex = Math.floor(Math.random()* ((data.length - 1) - 0 + 1) + 0);
+    console.log(randomIndex);
+    setIndex(randomIndex);
   }
   return (
     <>
@@ -39,8 +45,11 @@ const App = () => {
             <h5 className='job'>{job}</h5>
             <p>{text}</p>
           </div>
-          <button type="button" className='prev-btn' onClick={prevReview}><FaChevronLeft /></button>
-          <button type="button" className='next-btn' onClick={nextReview}><FaChevronRight /></button>
+          <div className="btn-container">
+            <button type="button" className='prev-btn' onClick={prevReview}><FaChevronLeft /></button>
+            <button type="button" className='next-btn' onClick={nextReview}><FaChevronRight /></button>
+          </div>
+          <button type="button" className='btn' onClick={randomUser}>Random Review</button>
         </div>
       </main>
     </>
