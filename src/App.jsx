@@ -6,6 +6,7 @@ import { FaQuoteRight, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 const App = () => {
   const [index, setIndex] = useState(0);
   const { id, name, job, image, text } = data[index];
+  const [randomIndex, setRandomIndex] = useState();
   const nextReview = () => {
     if (index < data.length - 1) {
       setIndex((prevIndex) => {
@@ -26,31 +27,34 @@ const App = () => {
   }
 
   const randomUser = () => {
-    const randomIndex = Math.floor(Math.random()* ((data.length - 1) - 0 + 1) + 0);
-    console.log(randomIndex);
-    setIndex(randomIndex);
+    let tempIndex = Math.floor(Math.random() * ((data.length - 1) - 0 + 1) + 0);
+    // console.log(randomIndex);
+    if(tempIndex !== randomIndex){
+      setRandomIndex(tempIndex);
+      setIndex(tempIndex);
+    }else{
+      randomUser();
+    }
   }
   return (
     <>
       <main>
-        <div className="review" key={id}>
+        <article className="review" key={id}>
           <div className="img-container">
             <img src={image} alt={name} className='person-img' />
-            <div className="quote-icon">
+            <span className="quote-icon">
               <FaQuoteRight className='quote-right' />
-            </div>
+            </span>
           </div>
-          <div className="info">
-            <h4 className='author'>{name}</h4>
-            <h5 className='job'>{job}</h5>
-            <p>{text}</p>
-          </div>
+          <h4 className='author'>{name}</h4>
+          <p className='job'>{job}</p>
+          <p className='info'>{text}</p>
           <div className="btn-container">
             <button type="button" className='prev-btn' onClick={prevReview}><FaChevronLeft /></button>
             <button type="button" className='next-btn' onClick={nextReview}><FaChevronRight /></button>
           </div>
-          <button type="button" className='btn' onClick={randomUser}>Random Review</button>
-        </div>
+          <button type="button" className='btn btn-hipster' onClick={randomUser}>Random Review</button>
+        </article>
       </main>
     </>
   )
